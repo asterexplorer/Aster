@@ -3,15 +3,11 @@
     "version": "1.0.0",
     "description": "Aster Explorer Fullstack Application",
     "private": true,
-    "workspaces": [
-        "frontend",
-        "backend"
-    ],
     "scripts": {
-        "install:all": "npm install",
-        "build": "npm run build --workspace=frontend",
-        "start": "npm start --workspace=backend",
-        "dev:frontend": "npm run dev --workspace=frontend",
-        "dev:backend": "npm run dev --workspace=backend"
+        "install:all": "cd frontend && npm install && cd ../backend && npm install",
+        "build": "cd frontend && npm run build",
+        "start": "cd backend && npm start",
+        "dev:frontend": "cd frontend && npm run dev",
+        "dev:backend": "cd backend && npm run dev"
     }
 }
