@@ -54,9 +54,10 @@ function App() {
     }
   };
 
-  const fetchJobs = async () => {
+  const fetchJobs = async (query = '') => {
     try {
-      const res = await fetch('/api/jobs');
+      const url = query ? `/api/jobs?q=${encodeURIComponent(query)}` : '/api/jobs';
+      const res = await fetch(url);
       if (res.ok) {
         const data = await res.json();
         setJobs(data);
@@ -137,7 +138,7 @@ function App() {
 
       <main>
         {/* Hero Section */}
-        <Hero />
+        <Hero onSearch={fetchJobs} />
 
         {/* Services Showcase */}
         <Services />

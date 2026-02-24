@@ -199,8 +199,18 @@ app.post('/api/jobs', async (req, res) => {
 app.get('/api/jobs', async (req, res) => {
     const skip = parseInt(req.query.skip) || 0;
     const limit = parseInt(req.query.limit) || 100;
+    const query = req.query.q ? `%${req.query.q}%` : null;
+
     try {
-        const jobs = await db.all(`SELECT * FROM jobs LIMIT ? OFFSET ?`, [limit, skip]);
+        let jobs;
+        if (query) {
+            jobs = await db.all(
+                `SELECT * FROM jobs WHERE title LIKE ? OR description LIKE ? OR skills LIKE ? LIMIT ? OFFSET ?`,
+                [query, query, query, limit, skip]
+            );
+        } else {
+            jobs = await db.all(`SELECT * FROM jobs LIMIT ? OFFSET ?`, [limit, skip]);
+        }
 
         // FastAPI code returned jobs with their proposals attached. Let's attach them manually since no ORM.
         const jobIds = jobs.map(j => j.id);

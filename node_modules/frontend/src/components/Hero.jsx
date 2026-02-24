@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Hero = () => {
+const Hero = ({ onSearch }) => {
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const handleSearch = () => {
+        if (onSearch) {
+            onSearch(searchQuery);
+            window.location.hash = '#jobs';
+        }
+    };
     return (
         <>
             <section className="container hero animate-fade" style={{
@@ -22,14 +30,23 @@ const Hero = () => {
                     </p>
                     <div style={{ position: 'relative', maxWidth: '550px', marginBottom: '1.5rem', display: 'flex' }}>
                         <div style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: '1.5rem', opacity: 0.5, fontSize: '1.1rem' }}>🔍</div>
-                        <input type="text" placeholder="Search for any service..." style={{ width: '100%', padding: '1.2rem 1.5rem 1.2rem 3.5rem', borderRadius: '100px', border: '2px solid rgba(0,0,0,0.1)', background: 'transparent', color: 'var(--text-primary)', fontSize: '1.1rem', outline: 'none', transition: 'all 0.3s' }} onFocus={(e) => { e.target.style.borderColor = '#14a800'; e.target.style.boxShadow = '0 10px 30px rgba(20, 168, 0, 0.1)'; }} onBlur={(e) => { e.target.style.borderColor = 'rgba(0,0,0,0.1)'; e.target.style.boxShadow = 'none'; }} />
-                        <button style={{ position: 'absolute', right: '0.4rem', top: '0.4rem', bottom: '0.4rem', background: '#14a800', border: 'none', color: 'white', padding: '0 1.8rem', borderRadius: '100px', fontWeight: 'bold', fontSize: '1rem', cursor: 'pointer', transition: 'background 0.2s' }} onMouseOver={(e) => e.target.style.background = '#108900'} onMouseOut={(e) => e.target.style.background = '#14a800'}>Search</button>
+                        <input
+                            type="text"
+                            placeholder="Search for any service..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onKeyDown={(e) => { if (e.key === 'Enter') handleSearch(); }}
+                            style={{ width: '100%', padding: '1.2rem 1.5rem 1.2rem 3.5rem', borderRadius: '100px', border: '2px solid rgba(0,0,0,0.1)', background: 'transparent', color: 'var(--text-primary)', fontSize: '1.1rem', outline: 'none', transition: 'all 0.3s' }}
+                            onFocus={(e) => { e.target.style.borderColor = '#14a800'; e.target.style.boxShadow = '0 10px 30px rgba(20, 168, 0, 0.1)'; }}
+                            onBlur={(e) => { e.target.style.borderColor = 'rgba(0,0,0,0.1)'; e.target.style.boxShadow = 'none'; }}
+                        />
+                        <button onClick={handleSearch} style={{ position: 'absolute', right: '0.4rem', top: '0.4rem', bottom: '0.4rem', background: '#14a800', border: 'none', color: 'white', padding: '0 1.8rem', borderRadius: '100px', fontWeight: 'bold', fontSize: '1rem', cursor: 'pointer', transition: 'background 0.2s' }} onMouseOver={(e) => e.target.style.background = '#108900'} onMouseOut={(e) => e.target.style.background = '#14a800'}>Search</button>
                     </div>
 
                     <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap', alignItems: 'center', marginBottom: '3rem' }}>
                         <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', fontWeight: 'bold', marginRight: '0.4rem' }}>Popular:</span>
                         {['Website Design', 'WordPress', 'Logo Design', 'AI Services'].map(skill => (
-                            <span key={skill} style={{ fontSize: '0.85rem', padding: '0.4rem 1rem', border: '1px solid var(--glass-border)', borderRadius: '100px', color: 'var(--text-secondary)', cursor: 'pointer', transition: 'all 0.2s', fontWeight: '500' }} onMouseOver={(e) => { e.target.style.borderColor = '#14a800'; e.target.style.color = '#14a800'; e.target.style.background = 'rgba(20, 168, 0, 0.05)' }} onMouseOut={(e) => { e.target.style.borderColor = 'var(--glass-border)'; e.target.style.color = 'var(--text-secondary)'; e.target.style.background = 'transparent' }}>{skill}</span>
+                            <span key={skill} onClick={() => { setSearchQuery(skill); if (onSearch) { onSearch(skill); window.location.hash = '#jobs'; } }} style={{ fontSize: '0.85rem', padding: '0.4rem 1rem', border: '1px solid var(--glass-border)', borderRadius: '100px', color: 'var(--text-secondary)', cursor: 'pointer', transition: 'all 0.2s', fontWeight: '500' }} onMouseOver={(e) => { e.target.style.borderColor = '#14a800'; e.target.style.color = '#14a800'; e.target.style.background = 'rgba(20, 168, 0, 0.05)' }} onMouseOut={(e) => { e.target.style.borderColor = 'var(--glass-border)'; e.target.style.color = 'var(--text-secondary)'; e.target.style.background = 'transparent' }}>{skill}</span>
                         ))}
                     </div>
 
