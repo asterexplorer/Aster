@@ -1,0 +1,7 @@
+{
+    "python.interpreterPath": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/backend_fastapi"
+    ],
+    "python.analysis.typeCheckingMode": "basic"
+}
