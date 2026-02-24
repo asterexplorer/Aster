@@ -6,7 +6,7 @@ const VoiceAssistant = () => {
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [messages, setMessages] = useState([
-    { role: 'ai', text: 'Hello! I am AsterExplorer AI. I can help you find freelance work or hire talent.' }
+    { role: 'ai', text: 'Hi! I am the AsterExplorer Assistant. How can I help you find work or talent today?' }
   ]);
   const [inputValue, setInputValue] = useState('');
   const scrollRef = useRef(null);
@@ -20,6 +20,12 @@ const VoiceAssistant = () => {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages, isOpen]);
+
+  useEffect(() => {
+    const handleOpenChat = () => setIsOpen(true);
+    window.addEventListener('open-chat', handleOpenChat);
+    return () => window.removeEventListener('open-chat', handleOpenChat);
+  }, []);
 
   useEffect(() => {
     // Initialize Speech Recognition
@@ -170,12 +176,12 @@ const VoiceAssistant = () => {
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
             <div>
-              <h4 style={{ margin: 0, fontSize: '1.2rem' }}>AsterExplorer AI</h4>
+              <h4 style={{ margin: 0, fontSize: '1.2rem' }}>AsterExplorer Assistant</h4>
               <span style={{ fontSize: '0.7rem', color: isSpeaking ? 'var(--accent-tertiary)' : (isListening ? 'var(--accent-primary)' : 'var(--text-secondary)') }}>
                 {isSpeaking ? '● Speaking...' : (isListening ? '● Listening...' : '● Online')}
               </span>
             </div>
-            <div className="tag tag-software" style={{ fontSize: '0.6rem' }}>Freelance Guide</div>
+            <div className="tag" style={{ fontSize: '0.6rem', color: 'var(--accent-primary)', borderColor: 'var(--accent-primary)', background: 'rgba(20, 168, 0, 0.1)' }}>Support</div>
           </div>
 
           <div
@@ -272,7 +278,7 @@ const VoiceAssistant = () => {
                 height: '40px',
                 borderRadius: '10px',
                 border: 'none',
-                background: 'var(--accent-secondary)',
+                background: 'var(--accent-primary)',
                 color: 'white',
                 cursor: 'pointer',
                 display: 'flex',
@@ -288,9 +294,9 @@ const VoiceAssistant = () => {
 
       <style>{`
         @keyframes pulse-ai {
-          0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.4); }
-          70% { box-shadow: 0 0 0 15px rgba(56, 189, 248, 0); }
-          100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+          0% { box-shadow: 0 0 0 0 rgba(20, 168, 0, 0.4); }
+          70% { box-shadow: 0 0 0 15px rgba(20, 168, 0, 0); }
+          100% { box-shadow: 0 0 0 0 rgba(20, 168, 0, 0); }
         }
       `}</style>
     </div>

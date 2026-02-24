@@ -2,100 +2,95 @@ import React from 'react';
 
 const Services = () => {
     return (
-        <section id="services" className="container section animate-fade" style={{ paddingTop: '2rem' }}>
-            <div className="section-header">
-                <div className="tag tag-software" style={{ marginBottom: '1rem' }}>Expert Portfolio</div>
-                <h2 style={{ fontSize: '3.5rem', color: 'var(--text-primary)' }}>Service Excellence</h2>
-                <p style={{ color: 'var(--text-secondary)' }}>Detailed solutions engineered for performance and scalability.</p>
+        <section id="services" className="container section animate-fade" style={{ paddingTop: '5rem', paddingBottom: '5rem' }}>
+            <div className="section-header" style={{ marginBottom: '4rem', textAlign: 'left', width: '100%', maxWidth: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                <div>
+                    <h2 style={{ fontSize: '3rem', color: 'var(--text-primary)', margin: '0 0 0.5rem 0', letterSpacing: '-0.02em', fontFamily: 'var(--font-heading)' }}>Browse talent by category</h2>
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '1.2rem', margin: 0 }}>Looking for work? <a href="#jobs" style={{ color: '#14a800', textDecoration: 'none', fontWeight: '500' }} onMouseOver={(e) => e.target.style.textDecoration = 'underline'} onMouseOut={(e) => e.target.style.textDecoration = 'none'}>Browse jobs</a></p>
+                </div>
             </div>
+
             <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-                gap: '2.5rem',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                gap: '1.5rem',
                 width: '100%'
             }}>
                 {[
                     {
-                        title: "AutoCAD",
-                        desc: "Precision 2D/3D modeling for architecture and product design.",
-                        features: ["Phase-ready blueprints", "3D Rendering", "BIM Integration"],
-                        metric: "ISO Standard"
+                        title: "Development & IT",
+                        rating: "4.85/5",
+                        skills: "1853 skills"
                     },
                     {
-                        title: "Graphic Design",
-                        desc: "Strategic visual storytelling and branding that captures market attention.",
-                        features: ["Identity Systems", "Motion Graphics", "UX/UI Design"],
-                        metric: "100% Unique"
+                        title: "Design & Creative",
+                        rating: "4.91/5",
+                        skills: "968 skills"
                     },
                     {
-                        title: "Flutter Mobile App",
-                        desc: "High-performance apps with native feel and fluid animations.",
-                        features: ["Fast Deployment", "Single Codebase", "API Integration"],
-                        metric: "60 FPS"
+                        title: "Sales & Marketing",
+                        rating: "4.77/5",
+                        skills: "392 skills"
                     },
                     {
-                        title: "CCNA Networking",
-                        desc: "Robust enterprise network architecture and proactive security.",
-                        features: ["Intrusion Detection", "Zero-trust Setup", "Optimization"],
-                        metric: "99.9% Uptime"
+                        title: "Writing & Translation",
+                        rating: "4.92/5",
+                        skills: "505 skills"
                     },
                     {
-                        title: "Website Design",
-                        desc: "Conversion-centric web experiences built on modern technology stacks.",
-                        features: ["SEO Optimized", "Mobile First", "High Performance"],
-                        metric: "90+ Score"
+                        title: "Admin & Customer Support",
+                        rating: "4.79/5",
+                        skills: "123 skills"
                     },
                     {
-                        title: "Digital Marketing",
-                        desc: "ROI-driven growth campaigns powered by advanced data analytics.",
-                        features: ["Growth Hacking", "PPC Management", "Content Strategy"],
-                        metric: "3x ROI"
+                        title: "Finance & Accounting",
+                        rating: "4.86/5",
+                        skills: "214 skills"
                     },
                     {
-                        title: "Prompt Engineering",
-                        desc: "Maximizing LLM efficiency with specialized prompt architecture.",
-                        features: ["LLM Optimization", "Automation", "Model Tuning"],
-                        metric: "AI Ready"
+                        title: "Engineering & Architecture",
+                        rating: "4.82/5",
+                        skills: "650 skills"
                     },
                     {
-                        title: "Ethical Hacking",
-                        desc: "Comprehensive security audits to protect your digital assets.",
-                        features: ["Pen-testing", "Risk Assessment", "Vulnerability Fixes"],
-                        metric: "Bank-grade"
-                    },
-                    {
-                        title: "SAP S/4HANA",
-                        desc: "Next-gen ERP implementation for intelligent business operations.",
-                        features: ["Real-time Analytics", "Automation", "Migration"],
-                        metric: "Cloud-Ready"
+                        title: "Consulting & HR",
+                        rating: "4.88/5",
+                        skills: "411 skills"
                     }
                 ].map((s, idx) => (
-                    <div key={idx} className="glass-card" style={{
-                        padding: '2.5rem 2rem',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '1rem',
-                        borderTop: '4px solid var(--accent-primary)',
-                        textAlign: 'left'
-                    }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <span className="tag tag-software" style={{ fontSize: '0.7rem' }}>{s.metric}</span>
+                    <a href="#jobs" key={idx} style={{ textDecoration: 'none' }}>
+                        <div className="glass-card" style={{
+                            padding: '2rem',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '1.5rem',
+                            backgroundColor: 'white',
+                            textAlign: 'left',
+                            borderRadius: '16px',
+                            border: '1px solid var(--glass-border)',
+                            transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                            cursor: 'pointer',
+                            height: '100%'
+                        }} onMouseOver={(e) => {
+                            e.currentTarget.style.backgroundColor = '#f2f7f2';
+                            e.currentTarget.style.transform = 'translateY(-4px)';
+                            e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.06)';
+                        }} onMouseOut={(e) => {
+                            e.currentTarget.style.backgroundColor = 'white';
+                            e.currentTarget.style.transform = 'translateY(0)';
+                            e.currentTarget.style.boxShadow = '0 8px 32px 0 rgba(0, 0, 0, 0.4)'; // Reset to original glass-card shadow
+                        }}>
+                            <h3 style={{ fontSize: '1.5rem', margin: 0, color: 'var(--text-primary)', letterSpacing: '-0.01em', lineHeight: '1.3' }}>{s.title}</h3>
+                            <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-primary)', fontWeight: '600', fontSize: '1rem' }}>
+                                    <span style={{ color: '#14a800', fontSize: '1.2rem' }}>★</span> {s.rating}
+                                </div>
+                                <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', fontWeight: '500' }}>
+                                    {s.skills}
+                                </div>
+                            </div>
                         </div>
-                        <h3 style={{ fontSize: '1.6rem', margin: 0, color: 'var(--text-primary)' }}>{s.title}</h3>
-                        <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: '1.6' }}>{s.desc}</p>
-                        <div style={{ borderTop: '1px solid var(--glass-border)', paddingTop: '1.5rem' }}>
-                            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexWrap: 'wrap', gap: '0.6rem' }}>
-                                {s.features.map((f, i) => (
-                                    <li key={i} style={{ fontSize: '0.85rem', color: 'var(--text-primary)', background: 'rgba(0,0,0,0.04)', padding: '0.4rem 0.8rem', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.06)' }}>
-                                        {f}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <a href="#post-job" className="btn btn-primary" style={{ marginTop: 'auto', width: '100%', padding: '0.8rem', fontSize: '0.95rem' }}>
-                            Select Service
-                        </a>
-                    </div>
+                    </a>
                 ))}
             </div>
         </section>

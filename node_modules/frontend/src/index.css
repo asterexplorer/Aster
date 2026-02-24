@@ -5,13 +5,13 @@ html {
 }
 
 :root {
-  --bg-primary: #f8fafc;
-  --bg-secondary: #e2e8f0;
-  --accent-primary: #0284c7;
-  --accent-secondary: #4f46e5;
-  --accent-tertiary: #9333ea;
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f2f7f2;
+  --accent-primary: #14a800;
+  --accent-secondary: #1f57c3;
+  --accent-tertiary: #108a00;
+  --text-primary: #001e00;
+  --text-secondary: #5e6d55;
   --glass-bg: rgba(255, 255, 255, 0.75);
   --glass-border: rgba(0, 0, 0, 0.1);
   --glass-hover: rgba(255, 255, 255, 0.95);
@@ -65,7 +65,7 @@ body {
   position: absolute;
   width: 60vw;
   height: 60vw;
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.15), transparent 70%);
+  background: radial-gradient(circle, rgba(20, 168, 0, 0.15), transparent 70%);
   top: -20%;
   left: -10%;
   filter: blur(120px);
@@ -76,7 +76,7 @@ body {
   position: absolute;
   width: 50vw;
   height: 50vw;
-  background: radial-gradient(circle, rgba(129, 140, 248, 0.15), transparent 70%);
+  background: radial-gradient(circle, rgba(31, 87, 195, 0.15), transparent 70%);
   bottom: -10%;
   right: -5%;
   filter: blur(120px);
@@ -217,7 +217,7 @@ p {
 
 .btn {
   padding: 0.8rem 1.8rem;
-  border-radius: 12px;
+  border-radius: 100px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -234,7 +234,7 @@ p {
 .btn-lg {
   padding: 1.25rem 2.5rem;
   font-size: 1.1rem;
-  border-radius: 16px;
+  border-radius: 100px;
 }
 
 .btn-block {
@@ -252,9 +252,9 @@ p {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-tertiary));
+  background: var(--accent-primary);
   color: #fff;
-  box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
+  box-shadow: 0 4px 15px rgba(20, 168, 0, 0.3);
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -282,8 +282,8 @@ p {
 
 .btn-primary:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(147, 51, 234, 0.5);
-  filter: brightness(1.15);
+  box-shadow: 0 12px 30px rgba(20, 168, 0, 0.3);
+  filter: brightness(1.05);
 }
 
 .navbar {

@@ -7,7 +7,9 @@ import Showcase from './components/Showcase';
 import FeatureBanner from './components/FeatureBanner';
 import Services from './components/Services';
 import Roadmap from './components/Roadmap';
-import Footer from './components/Footer'; function App() {
+import Footer from './components/Footer';
+
+function App() {
   const [scrolled, setScrolled] = useState(false);
   const [jobs, setJobs] = useState([]);
 
@@ -145,6 +147,10 @@ import Footer from './components/Footer'; function App() {
 
         {/* Jobs Feed Section */}
         <section id="jobs" className="container section">
+          <div className="section-header" style={{ marginBottom: '3rem' }}>
+            <h2 style={{ fontSize: '3.5rem', color: 'var(--text-primary)' }}>Find great work</h2>
+            <p style={{ color: 'var(--text-secondary)' }}>Meet clients you're excited to work with and take your career or business to new heights.</p>
+          </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', maxWidth: '900px', margin: '0 auto' }}>
             {jobs.length === 0 ? null : (
               jobs.map(job => (
@@ -179,38 +185,64 @@ import Footer from './components/Footer'; function App() {
                   </div>
 
                   {activeJobId === job.id && (
-                    <div style={{ width: '100%', marginTop: '2rem', background: 'rgba(0,0,0,0.03)', padding: '1.5rem', borderRadius: '12px' }}>
-                      <h4 style={{ marginBottom: '1rem' }}>Submit Your Proposal</h4>
-                      <form onSubmit={(e) => handleSubmitProposal(e, job.id)} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                          <input
+                    <div style={{ width: '100%', marginTop: '2rem', background: 'var(--bg-primary)', padding: '2.5rem', borderRadius: '16px', border: '1px solid var(--accent-primary)', boxShadow: '0 10px 30px rgba(20, 168, 0, 0.1)' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
+                        <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'rgba(20, 168, 0, 0.1)', color: '#14a800', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>💼</div>
+                        <h4 style={{ margin: 0, fontSize: '1.8rem', color: 'var(--text-primary)' }}>Submit a Proposal</h4>
+                      </div>
+
+                      <form onSubmit={(e) => handleSubmitProposal(e, job.id)} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 2fr) minmax(0, 1fr)', gap: '1.5rem' }}>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                            <label style={{ fontSize: '0.9rem', fontWeight: '600', color: 'var(--text-primary)' }}>Your Professional Profile Name</label>
+                            <input
+                              className="btn glass-card"
+                              style={{ background: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--glass-border)', padding: '1.2rem', textAlign: 'left', borderRadius: '12px' }}
+                              placeholder="e.g. Jane Doe - Senior Developer"
+                              value={proposalForm.freelancer_name}
+                              onChange={(e) => setProposalForm({ ...proposalForm, freelancer_name: e.target.value })}
+                              required
+                            />
+                          </div>
+
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                            <label style={{ fontSize: '0.9rem', fontWeight: '600', color: 'var(--text-primary)' }}>Your Bid ($)</label>
+                            <input
+                              type="number"
+                              className="btn glass-card"
+                              style={{ background: 'white', color: 'var(--text-primary)', border: '2px solid var(--accent-primary)', padding: '1.2rem', textAlign: 'left', borderRadius: '12px', fontWeight: 'bold' }}
+                              placeholder="0.00"
+                              value={proposalForm.bid_amount}
+                              onChange={(e) => setProposalForm({ ...proposalForm, bid_amount: e.target.value })}
+                              required
+                            />
+                          </div>
+                        </div>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                          <label style={{ fontSize: '0.9rem', fontWeight: '600', color: 'var(--text-primary)' }}>Cover Letter</label>
+                          <textarea
                             className="btn glass-card"
-                            style={{ background: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--glass-border)', padding: '1rem', textAlign: 'left' }}
-                            placeholder="Your Name / Alias"
-                            value={proposalForm.freelancer_name}
-                            onChange={(e) => setProposalForm({ ...proposalForm, freelancer_name: e.target.value })}
-                            required
-                          />
-                          <input
-                            type="number"
-                            className="btn glass-card"
-                            style={{ background: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--glass-border)', padding: '1rem', textAlign: 'left' }}
-                            placeholder="Bid Amount ($)"
-                            value={proposalForm.bid_amount}
-                            onChange={(e) => setProposalForm({ ...proposalForm, bid_amount: e.target.value })}
+                            style={{ background: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--glass-border)', padding: '1.2rem', minHeight: '160px', textAlign: 'left', width: '100%', borderRadius: '12px' }}
+                            placeholder="Highlight your relevant experience, attach links to your portfolio, and explain how you plan to tackle this project..."
+                            value={proposalForm.cover_letter}
+                            onChange={(e) => setProposalForm({ ...proposalForm, cover_letter: e.target.value })}
                             required
                           />
                         </div>
-                        <textarea
-                          className="btn glass-card"
-                          style={{ background: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--glass-border)', padding: '1rem', minHeight: '120px', textAlign: 'left', width: '100%' }}
-                          placeholder="Cover Letter: Explain why you are the best fit for this project..."
-                          value={proposalForm.cover_letter}
-                          onChange={(e) => setProposalForm({ ...proposalForm, cover_letter: e.target.value })}
-                          required
-                        />
-                        <button type="submit" disabled={proposalStatus === 'Submitting...'} className="btn btn-primary" style={{ alignSelf: 'flex-start' }}>Send Proposal</button>
-                        {proposalStatus && <p style={{ color: proposalStatus.includes('Error') ? '#ef4444' : '#10b981', fontSize: '0.9rem' }}>{proposalStatus}</p>}
+
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '1rem', borderTop: '1px solid var(--glass-border)', paddingTop: '1.5rem' }}>
+                          {proposalStatus ? (
+                            <p style={{ color: proposalStatus.includes('Error') ? '#ef4444' : '#14a800', fontSize: '1rem', fontWeight: '600', margin: 0 }}>{proposalStatus}</p>
+                          ) : (
+                            <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', margin: 0 }}>Includes AsterExplorer's 5% freelancer service fee.</p>
+                          )}
+                          <div style={{ display: 'flex', gap: '1rem' }}>
+                            <button type="button" onClick={() => setActiveJobId(null)} className="btn glass-card" style={{ background: 'transparent', color: 'var(--text-primary)', border: 'none', padding: '1rem 2rem' }}>Cancel</button>
+                            <button type="submit" disabled={proposalStatus === 'Submitting...'} className="btn btn-primary" style={{ padding: '1rem 2.5rem', boxShadow: '0 8px 25px rgba(20, 168, 0, 0.3)' }}>Send Proposal</button>
+                          </div>
+                        </div>
                       </form>
                     </div>
                   )}
@@ -222,61 +254,88 @@ import Footer from './components/Footer'; function App() {
 
         {/* Post a Job Section */}
         <section id="post-job" className="container section">
-          <div className="glass-card" style={{ padding: '5rem', maxWidth: '900px', margin: '0 auto', width: '100%' }}>
-            <div className="section-header" style={{ marginBottom: '3rem' }}>
-              <h2 className="gradient-text" style={{ fontSize: '3.5rem' }}>Post a New Project</h2>
-              <p style={{ color: 'var(--text-secondary)', marginTop: '1rem' }}>Need something done? Describe your project and start receiving bids.</p>
+          <div className="glass-card" style={{ padding: '4rem 5rem', maxWidth: '900px', margin: '0 auto', width: '100%', background: 'var(--bg-primary)', borderRadius: '24px', border: '1px solid var(--glass-border)', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.05)' }}>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '3rem' }}>
+              <div style={{ width: '60px', height: '60px', borderRadius: '16px', background: 'rgba(20, 168, 0, 0.1)', color: '#14a800', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.8rem' }}>📝</div>
+              <div>
+                <h2 style={{ fontSize: '2.5rem', margin: '0 0 0.5rem 0', color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>Post a Job</h2>
+                <p style={{ color: 'var(--text-secondary)', margin: 0, fontSize: '1.1rem' }}>Connect with millions of independent professionals and bring your project to life.</p>
+              </div>
             </div>
+
             <form onSubmit={handlePostJob} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '2rem' }}>
-                <input
-                  className="btn glass-card"
-                  style={{ background: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--glass-border)', padding: '1.25rem', textAlign: 'left' }}
-                  placeholder="Project Title (e.g., Build a React Website)"
-                  value={jobForm.title}
-                  onChange={(e) => setJobForm({ ...jobForm, title: e.target.value })}
-                  required
-                />
-                <input
-                  type="number"
-                  className="btn glass-card"
-                  style={{ background: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--glass-border)', padding: '1.25rem', textAlign: 'left' }}
-                  placeholder="Budget ($)"
-                  value={jobForm.budget}
-                  onChange={(e) => setJobForm({ ...jobForm, budget: e.target.value })}
-                  required
-                />
+              <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 2fr) minmax(0, 1fr)', gap: '2rem' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  <label style={{ fontSize: '0.95rem', fontWeight: '600', color: 'var(--text-primary)' }}>Project Title</label>
+                  <input
+                    className="btn glass-card"
+                    style={{ background: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--glass-border)', padding: '1.25rem', textAlign: 'left', borderRadius: '12px', fontSize: '1rem' }}
+                    placeholder="e.g., Build a responsive React website"
+                    value={jobForm.title}
+                    onChange={(e) => setJobForm({ ...jobForm, title: e.target.value })}
+                    required
+                  />
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  <label style={{ fontSize: '0.95rem', fontWeight: '600', color: 'var(--text-primary)' }}>Estimated Budget ($)</label>
+                  <input
+                    type="number"
+                    className="btn glass-card"
+                    style={{ background: 'white', color: 'var(--text-primary)', border: '2px solid var(--accent-primary)', padding: '1.25rem', textAlign: 'left', borderRadius: '12px', fontSize: '1rem', fontWeight: 'bold' }}
+                    placeholder="0.00"
+                    value={jobForm.budget}
+                    onChange={(e) => setJobForm({ ...jobForm, budget: e.target.value })}
+                    required
+                  />
+                </div>
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
-                <input
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  <label style={{ fontSize: '0.95rem', fontWeight: '600', color: 'var(--text-primary)' }}>Company / Client Name</label>
+                  <input
+                    className="btn glass-card"
+                    style={{ background: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--glass-border)', padding: '1.25rem', textAlign: 'left', borderRadius: '12px', fontSize: '1rem' }}
+                    placeholder="Enter your organization's name"
+                    value={jobForm.client_name}
+                    onChange={(e) => setJobForm({ ...jobForm, client_name: e.target.value })}
+                    required
+                  />
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  <label style={{ fontSize: '0.95rem', fontWeight: '600', color: 'var(--text-primary)' }}>Required Skills</label>
+                  <input
+                    className="btn glass-card"
+                    style={{ background: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--glass-border)', padding: '1.25rem', textAlign: 'left', borderRadius: '12px', fontSize: '1rem' }}
+                    placeholder="e.g., React, Node.js, Design (comma separated)"
+                    value={jobForm.skills}
+                    onChange={(e) => setJobForm({ ...jobForm, skills: e.target.value })}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <label style={{ fontSize: '0.95rem', fontWeight: '600', color: 'var(--text-primary)' }}>Project Description</label>
+                <textarea
                   className="btn glass-card"
-                  style={{ background: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--glass-border)', padding: '1.25rem', textAlign: 'left' }}
-                  placeholder="Company / Client Name"
-                  value={jobForm.client_name}
-                  onChange={(e) => setJobForm({ ...jobForm, client_name: e.target.value })}
-                  required
-                />
-                <input
-                  className="btn glass-card"
-                  style={{ background: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--glass-border)', padding: '1.25rem', textAlign: 'left' }}
-                  placeholder="Required Skills (comma separated)"
-                  value={jobForm.skills}
-                  onChange={(e) => setJobForm({ ...jobForm, skills: e.target.value })}
+                  style={{ background: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--glass-border)', padding: '1.25rem', minHeight: '200px', textAlign: 'left', width: '100%', borderRadius: '12px', fontSize: '1rem', lineHeight: '1.6' }}
+                  placeholder="Describe your project here. Include any specific requirements, deliverables, or timelines..."
+                  value={jobForm.description}
+                  onChange={(e) => setJobForm({ ...jobForm, description: e.target.value })}
                   required
                 />
               </div>
 
-              <textarea
-                className="btn glass-card"
-                style={{ background: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--glass-border)', padding: '1.25rem', minHeight: '200px', textAlign: 'left', width: '100%' }}
-                placeholder="Describe your project in detail..."
-                value={jobForm.description}
-                onChange={(e) => setJobForm({ ...jobForm, description: e.target.value })}
-                required
-              />
-              <button type="submit" disabled={postStatus === 'Posting...'} className="btn btn-primary btn-lg btn-block">Publish Job</button>
-              {postStatus && <p style={{ textAlign: 'center', marginTop: '1rem', fontWeight: '500', color: postStatus.includes('Error') ? '#ef4444' : '#10b981' }}>{postStatus}</p>}
+              <div style={{ marginTop: '1rem', borderTop: '1px solid var(--glass-border)', paddingTop: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div>
+                  {postStatus && <p style={{ margin: 0, fontWeight: '600', fontSize: '1.1rem', color: postStatus.includes('Error') ? '#ef4444' : '#14a800' }}>{postStatus}</p>}
+                </div>
+                <button type="submit" disabled={postStatus === 'Posting...'} className="btn btn-primary" style={{ padding: '1.25rem 3rem', fontSize: '1.1rem', boxShadow: '0 10px 30px rgba(20, 168, 0, 0.3)' }}>Publish Job</button>
+              </div>
             </form>
           </div>
         </section>

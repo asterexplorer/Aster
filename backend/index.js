@@ -7,9 +7,19 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const hpp = require('hpp');
 const xss = require('xss-clean');
+const nodemailer = require('nodemailer');
 
 const app = express();
 const port = 8005;
+
+// Configure the email transporter
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'asterexplorer@gmail.com',
+        pass: 'YOUR_GMAIL_APP_PASSWORD' // Configure your App Password here
+    }
+});
 
 // --- Enterprise Security Middlewares ---
 // 1. Set Security HTTP Headers (Helmet)
@@ -160,6 +170,32 @@ app.post('/api/jobs/:job_id/proposals', async (req, res) => {
         );
 
         const newProposal = await db.get(`SELECT * FROM proposals WHERE id = ?`, [result.lastID]);
+
+        // --- Send Email Notification to Admin ---
+        try {
+            await transporter.sendMail({
+                from: 'asterexplorer@gmail.com',
+                to: 'asterexplorer@gmail.com',
+                subject: `New Proposal Submitted on AsterExplorer (Job ID: ${jobId})`,
+                html: `
+                    <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px;">
+                        <h2 style="color: #14a800;">New Proposal Received!</h2>
+                        <p>A freelancer has just submitted a proposal for a project on AsterExplorer.</p>
+                        <div style="background-color: #f2f7f2; padding: 15px; border-left: 4px solid #14a800; margin: 20px 0;">
+                            <p style="margin: 0 0 10px 0;"><strong>Freelancer Name:</strong> ${freelancer_name}</p>
+                            <p style="margin: 0 0 10px 0;"><strong>Proposed Bid Amount:</strong> $${bid_amount}</p>
+                            <p style="margin: 0;"><strong>Cover Letter:</strong></p>
+                            <p style="white-space: pre-wrap; margin-top: 5px;">${cover_letter}</p>
+                        </div>
+                        <p style="font-size: 0.9em; color: #555;">Please log into your dashboard to review this candidate.</p>
+                    </div>
+                `
+            });
+            console.log(`Sent email notification for proposal from ${freelancer_name}`);
+        } catch (emailError) {
+            console.error("Failed to send proposal email notification:", emailError.message);
+        }
+
         res.json(newProposal);
     } catch (e) {
         res.status(500).json({ error: e.message });
