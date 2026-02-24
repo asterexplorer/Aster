@@ -57,14 +57,11 @@ app.use(express.json());
 // Initialize database connection
 let db;
 (async () => {
-    // Vercel Serverless Functions have a read-only filesystem except for /tmp
-    const dbPath = process.env.VERCEL ? '/tmp/aster.db' : path.join(__dirname, '../aster.db');
-
     db = await open({
-        filename: dbPath,
+        filename: path.join(__dirname, '../aster.db'),
         driver: sqlite3.Database
     });
-    console.log(`Connected to SQLite database at ${dbPath}`);
+    console.log("Connected to SQLite database at ../aster.db");
 
     // Create tables if not exist (same as FastAPI models.Base.metadata.create_all)
     await db.exec(`
@@ -362,12 +359,7 @@ app.use((req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
 });
 
-// For Vercel, we need to export the Express app instead of listening directly
-if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
-    app.listen(port, '0.0.0.0', () => {
-        console.log(`Node.js API server running at http://0.0.0.0:${port}`);
-        console.log(`Serving frontend from ../frontend/dist`);
-    });
-}
-
-module.exports = app;
+app.listen(port, '0.0.0.0', () => {
+    console.log(`Node.js API server running at http://0.0.0.0:${port}`);
+    console.log(`Serving frontend from ../frontend/dist`);
+});
