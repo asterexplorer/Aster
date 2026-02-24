@@ -90,6 +90,11 @@ let db;
             password TEXT NOT NULL,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         );
+        CREATE TABLE IF NOT EXISTS subscribers (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            email TEXT UNIQUE NOT NULL,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        );
     `);
 
     // Create a default admin user if none exists
@@ -151,6 +156,37 @@ app.post('/api/signup', async (req, res) => {
         }
     } catch (e) {
         return res.status(500).json({ success: false, detail: "Failed to create account." });
+    }
+});
+
+app.post('/api/subscribe', async (req, res) => {
+    const { email } = req.body;
+
+    if (!email) {
+        return res.status(400).json({ success: false, detail: "Email is required." });
+    }
+
+    try {
+        const existing = await db.get(`SELECT * FROM subscribers WHERE email = ?`, [email]);
+        if (existing) {
+            return res.json({ success: false, detail: "You are already subscribed!" });
+        }
+
+        await db.run(`INSERT INTO subscribers (email) VALUES (?)`, [email]);
+
+        // Notify Admin of new subscriber
+        try {
+            await transporter.sendMail({
+                from: 'asterexplorer@gmail.com',
+                to: 'asterexplorer@gmail.com',
+                subject: `New Newsletter Subscriber: ${email}`,
+                html: `<p>A new user (<strong>${email}</strong>) has subscribed to the AsterExplorer newsletter.</p>`
+            });
+        } catch (e) { console.error("Could not send email for subscriber", e.message); }
+
+        return res.json({ success: true, detail: "Thank you for subscribing!" });
+    } catch (e) {
+        return res.status(500).json({ success: false, detail: "Failed to subscribe." });
     }
 });
 
