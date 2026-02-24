@@ -37,7 +37,6 @@ const Navbar = ({ scrolled, setLoginModalOpen }) => {
                         />
                     </div>
                     <button onClick={() => setLoginModalOpen(true)} style={{ padding: '0.5rem 1rem', fontSize: '1rem', background: 'transparent', color: 'var(--text-primary)', border: 'none', cursor: 'pointer', fontWeight: '500', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = '#14a800'} onMouseOut={(e) => e.target.style.color = 'var(--text-primary)'}>Log In</button>
-                    <button onClick={() => setLoginModalOpen(true)} className="btn btn-primary" style={{ padding: '0.6rem 1.8rem', fontSize: '1rem', borderRadius: '100px', boxShadow: 'none' }}>Sign Up</button>
                 </div>
             </div>
         </nav>

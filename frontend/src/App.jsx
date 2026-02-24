@@ -355,33 +355,51 @@ function App() {
           position: 'fixed',
           inset: 0,
           zIndex: 99999,
-          background: 'rgba(255, 255, 255, 0.75)',
-          backdropFilter: 'blur(15px)',
-          WebkitBackdropFilter: 'blur(15px)',
+          background: 'rgba(0, 0, 0, 0.4)',
+          backdropFilter: 'blur(4px)',
+          WebkitBackdropFilter: 'blur(4px)',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           padding: '2rem'
         }}>
-          <div className="glass-card" style={{ width: '100%', maxWidth: '450px', padding: '3rem', position: 'relative', background: 'var(--bg-primary)', animation: 'fadeIn 0.3s ease-out', border: '1px solid var(--glass-border)', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.1)' }}>
+          <div style={{ width: '100%', maxWidth: '480px', padding: '4rem 3.5rem', position: 'relative', background: 'white', borderRadius: '16px', animation: 'fadeIn 0.2s ease-out', border: '1px solid var(--glass-border)', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.1)' }}>
             <button onClick={() => setLoginModalOpen(false)} style={{
               position: 'absolute', top: '1.5rem', right: '1.5rem', background: 'transparent', border: 'none', color: 'var(--text-secondary)', fontSize: '1.5rem', cursor: 'pointer', transition: 'all 0.2s'
-            }} onMouseOver={(e) => { e.currentTarget.style.color = 'var(--accent-primary)'; }} onMouseOut={(e) => { e.currentTarget.style.color = 'var(--text-secondary)'; }}>
-              ✖
+            }} onMouseOver={(e) => { e.currentTarget.style.color = '#14a800'; }} onMouseOut={(e) => { e.currentTarget.style.color = 'var(--text-secondary)'; }}>
+              ✕
             </button>
-            <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-              <h2 className="gradient-text" style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>Welcome Back</h2>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Securely login to your AsterExplorer account.</p>
+            <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+              <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem', color: 'var(--text-primary)', fontFamily: 'var(--font-heading)', letterSpacing: '-0.02em', fontWeight: 'bold' }}>Log in to AsterExplorer</h2>
             </div>
 
-            <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '1.5rem' }}>
+              <button style={{ width: '100%', padding: '0.8rem 1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.8rem', background: 'white', border: '1px solid #dcdcdc', borderRadius: '100px', cursor: 'pointer', fontSize: '1rem', fontWeight: '500', color: 'var(--text-primary)', transition: 'background 0.2s' }} onMouseOver={(e) => e.currentTarget.style.background = '#f2f2f2'} onMouseOut={(e) => e.currentTarget.style.background = 'white'}>
+                <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.7 17.74 9.5 24 9.5z" /><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" /><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" /><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" /></svg>
+                Continue with Google
+              </button>
+              <button style={{ width: '100%', padding: '0.8rem 1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.8rem', background: 'white', border: '1px solid #dcdcdc', borderRadius: '100px', cursor: 'pointer', fontSize: '1rem', fontWeight: '500', color: 'var(--text-primary)', transition: 'background 0.2s' }} onMouseOver={(e) => e.currentTarget.style.background = '#f2f2f2'} onMouseOut={(e) => e.currentTarget.style.background = 'white'}>
+                <svg width="18" height="18" viewBox="0 0 384 512"><path fill="currentColor" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"></path></svg>
+                Continue with Apple
+              </button>
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
+              <div style={{ flex: 1, height: '1px', background: '#dcdcdc' }}></div>
+              <div style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>or</div>
+              <div style={{ flex: 1, height: '1px', background: '#dcdcdc' }}></div>
+            </div>
+
+            <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
               <input
-                type="email"
-                placeholder="Email Address"
+                type="text"
+                placeholder="Username or Email"
                 required
                 value={loginForm.email}
                 onChange={(e) => setLoginForm({ ...loginForm, email: e.target.value })}
-                style={{ width: '100%', padding: '1rem', borderRadius: '12px', border: '1px solid var(--glass-border)', background: 'var(--bg-secondary)', color: 'var(--text-primary)', fontSize: '1rem' }}
+                style={{ width: '100%', padding: '0.9rem 1rem', borderRadius: '8px', border: '1px solid #dcdcdc', background: 'white', color: 'var(--text-primary)', fontSize: '1rem', outline: 'none', transition: 'border-color 0.2s' }}
+                onFocus={(e) => e.target.style.borderColor = '#14a800'}
+                onBlur={(e) => e.target.style.borderColor = '#dcdcdc'}
               />
               <input
                 type="password"
@@ -389,17 +407,23 @@ function App() {
                 required
                 value={loginForm.password}
                 onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
-                style={{ width: '100%', padding: '1rem', borderRadius: '12px', border: '1px solid var(--glass-border)', background: 'var(--bg-secondary)', color: 'var(--text-primary)', fontSize: '1rem' }}
+                style={{ width: '100%', padding: '0.9rem 1rem', borderRadius: '8px', border: '1px solid #dcdcdc', background: 'white', color: 'var(--text-primary)', fontSize: '1rem', outline: 'none', transition: 'border-color 0.2s' }}
+                onFocus={(e) => e.target.style.borderColor = '#14a800'}
+                onBlur={(e) => e.target.style.borderColor = '#dcdcdc'}
               />
 
-              <button type="submit" disabled={loginStatus === 'Connecting to Database...'} className="btn btn-primary btn-block" style={{ padding: '1.2rem', fontSize: '1.1rem', margin: '0.5rem 0' }}>Secure Login</button>
+              <button type="submit" disabled={loginStatus === 'Connecting to Database...'} style={{ width: '100%', padding: '0.9rem', fontSize: '1rem', background: '#14a800', color: 'white', border: 'none', borderRadius: '100px', cursor: 'pointer', fontWeight: 'bold', marginTop: '1rem', transition: 'background 0.2s' }} onMouseOver={(e) => e.target.style.background = '#108900'} onMouseOut={(e) => e.target.style.background = '#14a800'}>Continue with Email</button>
 
               {loginStatus && (
-                <div style={{ textAlign: 'center', padding: '1rem', borderRadius: '8px', background: loginStatus.includes('Error') || loginStatus.includes('Failed') ? 'rgba(239, 68, 68, 0.1)' : 'rgba(16, 185, 129, 0.1)', color: loginStatus.includes('Error') || loginStatus.includes('Failed') ? '#ef4444' : '#10b981', fontSize: '0.9rem', fontWeight: 'bold' }}>
+                <div style={{ textAlign: 'center', padding: '1rem', borderRadius: '8px', background: loginStatus.includes('Error') || loginStatus.includes('Failed') ? 'rgba(239, 68, 68, 0.1)' : 'rgba(20, 168, 0, 0.1)', color: loginStatus.includes('Error') || loginStatus.includes('Failed') ? '#ef4444' : '#14a800', fontSize: '0.9rem', fontWeight: 'bold' }}>
                   {loginStatus}
                 </div>
               )}
             </form>
+
+            <div style={{ marginTop: '2rem', textAlign: 'center', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+              Don't have an AsterExplorer account? <a href="#" style={{ color: '#14a800', textDecoration: 'none', fontWeight: '500' }} onMouseOver={(e) => e.target.style.textDecoration = 'underline'} onMouseOut={(e) => e.target.style.textDecoration = 'none'}>Sign Up</a>
+            </div>
           </div>
         </div>
       )}

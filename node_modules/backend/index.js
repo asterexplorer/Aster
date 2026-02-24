@@ -6,7 +6,7 @@ const path = require('path');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const hpp = require('hpp');
-const xss = require('xss-clean');
+// import removed
 const nodemailer = require('nodemailer');
 
 const app = express();
@@ -28,8 +28,8 @@ app.use(helmet({
     crossOriginEmbedderPolicy: false
 }));
 
-// 2. Prevent XSS Attacks
-app.use(xss());
+// 2. Prevent XSS Attacks (Removed due to Express 5 compatibility issues)
+// app.use(xss());
 
 // 3. Prevent HTTP Parameter Pollution
 app.use(hpp());
@@ -84,7 +84,20 @@ let db;
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY(job_id) REFERENCES jobs(id)
         );
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            email TEXT UNIQUE NOT NULL,
+            password TEXT NOT NULL,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        );
     `);
+
+    // Create a default admin user if none exists
+    const adminExists = await db.get(`SELECT * FROM users WHERE email = 'asterexplorer@gmail.com'`);
+    if (!adminExists) {
+        await db.run(`INSERT INTO users (email, password) VALUES (?, ?)`, ['asterexplorer@gmail.com', 'admin123']);
+        console.log("Created default admin user: asterexplorer@gmail.com / admin123");
+    }
 })();
 
 app.get('/', (req, res) => {
@@ -99,17 +112,46 @@ app.get('/api/info', (req, res) => {
     });
 });
 
-app.post('/api/login', (req, res) => {
+app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
 
-    if (email && password) {
-        if (password === "password123" || email.toLowerCase().includes("aster")) {
-            return res.json({ success: true, detail: "Logged in successfully", email });
-        } else {
-            return res.json({ success: false, detail: "Invalid credentials or user not found." });
-        }
+    if (!email || !password) {
+        return res.json({ success: false, detail: "Email and password are required." });
     }
-    return res.json({ success: false, detail: "Email and password required." });
+
+    try {
+        const user = await db.get(`SELECT * FROM users WHERE email = ?`, [email]);
+        if (user && user.password === password) {
+            // Success
+            return res.json({ success: true, detail: "Logged in successfully", email: user.email });
+        } else {
+            return res.json({ success: false, detail: "Invalid email or password." });
+        }
+    } catch (e) {
+        return res.status(500).json({ success: false, detail: "Database error." });
+    }
+});
+
+app.post('/api/signup', async (req, res) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.json({ success: false, detail: "Email and password are required." });
+    }
+
+    try {
+        const existing = await db.get(`SELECT * FROM users WHERE email = ?`, [email]);
+        if (existing) {
+            return res.json({ success: false, detail: "Email already in use." });
+        }
+
+        const result = await db.run(`INSERT INTO users (email, password) VALUES (?, ?)`, [email, password]);
+        if (result.lastID) {
+            return res.json({ success: true, detail: "Account created successfully", email });
+        }
+    } catch (e) {
+        return res.status(500).json({ success: false, detail: "Failed to create account." });
+    }
 });
 
 app.post('/api/jobs', async (req, res) => {
