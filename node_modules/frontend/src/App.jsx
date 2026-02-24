@@ -3,9 +3,10 @@ import './App.css'
 import VoiceAssistant from './components/VoiceAssistant';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import Showcase from './components/Showcase';
+// import removed
 import FeatureBanner from './components/FeatureBanner';
 import Services from './components/Services';
+import WhyAster from './components/WhyAster';
 import Roadmap from './components/Roadmap';
 import Footer from './components/Footer';
 
@@ -141,7 +142,7 @@ function App() {
         {/* Services Showcase */}
         <Services />
 
-        <Showcase />
+        <WhyAster />
 
         <FeatureBanner />
 
