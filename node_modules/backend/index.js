@@ -162,6 +162,34 @@ app.post('/api/jobs', async (req, res) => {
             [title, description, budget, skills, client_name]
         );
         const newJob = await db.get(`SELECT * FROM jobs WHERE id = ?`, [result.lastID]);
+
+        // --- Send Email Notification to Admin ---
+        try {
+            await transporter.sendMail({
+                from: 'asterexplorer@gmail.com',
+                to: 'asterexplorer@gmail.com',
+                subject: `New Job Posted on AsterExplorer: ${title}`,
+                html: `
+                    <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px;">
+                        <h2 style="color: #14a800;">New Job Posting!</h2>
+                        <p>A new client has just posted a project on AsterExplorer.</p>
+                        <div style="background-color: #f2f7f2; padding: 15px; border-left: 4px solid #14a800; margin: 20px 0;">
+                            <p style="margin: 0 0 10px 0;"><strong>Project Title:</strong> ${title}</p>
+                            <p style="margin: 0 0 10px 0;"><strong>Client Name:</strong> ${client_name}</p>
+                            <p style="margin: 0 0 10px 0;"><strong>Estimated Budget:</strong> $${budget}</p>
+                            <p style="margin: 0 0 10px 0;"><strong>Required Skills:</strong> ${skills}</p>
+                            <p style="margin: 0;"><strong>Description:</strong></p>
+                            <p style="white-space: pre-wrap; margin-top: 5px;">${description}</p>
+                        </div>
+                        <p style="font-size: 0.9em; color: #555;">Log in to the admin dashboard to review this posting.</p>
+                    </div>
+                `
+            });
+            console.log(`Sent email notification for new job posting: ${title}`);
+        } catch (emailError) {
+            console.error("Failed to send job posting email notification:", emailError.message);
+        }
+
         res.json({ ...newJob, proposals: [] });
     } catch (e) {
         res.status(500).json({ error: e.message });
