@@ -36,7 +36,7 @@ const Navbar = ({ scrolled, setLoginModalOpen }) => {
                             onBlur={(e) => { e.target.style.borderColor = 'rgba(0,0,0,0.1)'; e.target.style.background = 'rgba(0,0,0,0.03)'; }}
                         />
                     </div>
-                    <button onClick={() => setLoginModalOpen(true)} style={{ padding: '0.5rem 1rem', fontSize: '1rem', background: 'transparent', color: 'var(--text-primary)', border: 'none', cursor: 'pointer', fontWeight: '500', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = '#14a800'} onMouseOut={(e) => e.target.style.color = 'var(--text-primary)'}>Log In</button>
+                    <button onClick={() => setLoginModalOpen(true)} style={{ padding: '0.6rem 1.8rem', fontSize: '1rem', background: '#14a800', color: 'white', border: 'none', borderRadius: '100px', cursor: 'pointer', fontWeight: 'bold', transition: 'background 0.2s', boxShadow: '0 4px 14px rgba(20, 168, 0, 0.2)' }} onMouseOver={(e) => e.target.style.background = '#108900'} onMouseOut={(e) => e.target.style.background = '#14a800'}>Log In</button>
                 </div>
             </div>
         </nav>
